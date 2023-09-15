@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="style.css">
+    <title>Perhitungan Equity Ratio</title>
+</head>
+
+<body>
+    <header>
+        <div class="h2 pb-2 mb-4  border-bottom border-black">
+            Program Equity Ratio
+        </div>
+    </header>
+
+    <div class="form1">
+        <div class="mb-3">
+            <label for="equityInput" class="form-label">Equity</label>
+            <input type="number" class="form-control" id="equityInput" aria-describedby="emailHelp">
+            <div class="form-text"><em>Masukkan jumlah equity yang sesuai dengan Etrade.</em></div>
+        </div>
+        <div class="mb-3">
+            <label for="posisiInput" class="form-label">Posisi</label>
+            <input type="number" class="form-control" id="posisiInput" aria-describedby="emailHelp">
+            <div class="form-text"><em>Masukkan jumlah posisi lockingan (ex. 1 lock).</em></div>
+        </div>
+
+        <button type="button" class="btn btn-primary" onclick="calculateEquityRatio()">Generate Equity Ratio</button>
+
+        <!-- Kontainer untuk hasil -->
+        <div class="mt-3" id="hasilContainer">
+            <strong>Hasil Equity Ratio:</strong>
+            <p id="hasilEquityRatio"></p>
+            <strong>Hasil Ketahanan Dana:</strong>
+            <h5><p class="info" id="hasilketahananDana"></p></h5>
+        </div>
+        <!-- Tombol "Hapus" -->
+        <button type="button" class="btn btn-danger" onclick="hapusHasil()">Hapus</button>
+    </div>
+
+    <!-- footer -->
+    <footer>
+        Created BY Adhi KPF BALI
+    </footer>
+
+    <script>
+        function calculateEquityRatio() {
+            // Mengambil nilai equity dan posisi dari input
+            var equity = parseFloat(document.getElementById("equityInput").value);
+            var posisi = parseFloat(document.getElementById("posisiInput").value);
+
+            // Menghitung equity ratio
+            var equityRatio = (equity / (posisi * 300)) * 100;
+            var ketahananDana = Math.round(equity - (posisi * 33.3)) / (posisi * 10);
+
+            // Menampilkan hasil di dalam kolom hasil
+            document.getElementById("hasilEquityRatio").textContent = "Total Ratio: " + equityRatio.toFixed(2) + "%";
+            document.getElementById("hasilketahananDana").textContent ="Hasil Ketahanan Dana: " + ketahananDana + " hari";
+
+            // Menampilkan kontainer hasil jika belum ditampilkan
+            document.getElementById("hasilContainer").style.display = "block";
+        }
+        // Fungsi untuk menghapus hasil
+        function hapusHasil() {
+            document.getElementById("hasilContainer").style.display = "none";
+            document.getElementById("equityInput").value = "";
+            document.getElementById("posisiInput").value = "";
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
